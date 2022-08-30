@@ -11,8 +11,19 @@ namespace CatWorx.BadgeMaker
             // this is our employee-getting code now
             List<Employee> employees = new List<Employee>();
 
-            // employees = PeopleFetcher.GetEmployees();
-            employees = await PeopleFetcher.GetFromApi();
+            Console.WriteLine("Please Enter 'Y' if you would like to enter your own employees.");
+            string answer = Console.ReadLine() ?? "";
+
+            var yesAnswer = new string[]{"y", "Y", "yes", "Yes", "YES", "YEs", "YeS", "yeS"};
+
+            if(yesAnswer.Contains(answer)){
+                employees = PeopleFetcher.GetEmployees();
+            }
+
+            else {
+                employees = await PeopleFetcher.GetFromApi();
+            }
+            // employees = PeopleFetcher.GetEmployees();            
 
             Util.PrintEmployees(employees);
             Util.MakeCSV(employees);
